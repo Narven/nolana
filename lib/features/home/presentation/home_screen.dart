@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
                 children: const [
                   ActivityBar(),
                   PrimarySidebar(),
-                  MainArea(),
+                  Expanded(child: MainArea()),
                 ],
               ),
             ),

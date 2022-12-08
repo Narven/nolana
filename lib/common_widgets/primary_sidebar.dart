@@ -1,30 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/constants.dart';
+import '../features/window_state/data/window_state.dart';
 import 'debug_toolbar.dart';
 
-class PrimarySidebar extends StatelessWidget {
+class PrimarySidebar extends ConsumerWidget {
   const PrimarySidebar({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      decoration: const BoxDecoration(
-        color: kPrimarySidebarBackgroundColor,
-      ),
-      child: Column(
-        children: const [
-          DebugToolbar(),
-          PrimarySidebarPanel(title: 'Variables'),
-          PrimarySidebarPanel(title: 'Watch'),
-          PrimarySidebarPanel(title: 'Call Stack'),
-          PrimarySidebarPanel(title: 'Breakpoints'),
-        ],
-      ),
-    );
+  Widget build(BuildContext context, WidgetRef ref) {
+    final windowState = ref.watch(windowStateProvider);
+
+    return windowState.isPrimaryPanelOpen
+        ? Container(
+            width: 200,
+            decoration: const BoxDecoration(
+              color: kPrimarySidebarBackgroundColor,
+            ),
+            child: Column(
+              children: const [
+                DebugToolbar(),
+                PrimarySidebarPanel(title: 'Variables'),
+                PrimarySidebarPanel(title: 'Watch'),
+                PrimarySidebarPanel(title: 'Call Stack'),
+                PrimarySidebarPanel(title: 'Breakpoints'),
+              ],
+            ),
+          )
+        : Container();
   }
 }
 

@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/constants.dart';
+import '../features/window_state/data/window_state.dart';
 
-class Header extends StatelessWidget {
+class Header extends ConsumerWidget {
   const Header({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final windowStateNotifier = ref.read(windowStateProvider.notifier);
+    final windowState = ref.watch(windowStateProvider);
+
     return Container(
       height: 40,
       decoration: const BoxDecoration(
@@ -41,7 +46,9 @@ class Header extends StatelessWidget {
           ),
           const Spacer(),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              windowStateNotifier.togglePrimarySidebar();
+            },
             icon: const Icon(
               size: 20,
               Icons.align_horizontal_left,
@@ -49,7 +56,9 @@ class Header extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              windowStateNotifier.toggleFooter();
+            },
             icon: const Icon(
               size: 20,
               Icons.align_vertical_bottom,
@@ -57,7 +66,10 @@ class Header extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              debugPrint('Toggle activity bar');
+              windowStateNotifier.toggleActivityBar();
+            },
             icon: const Icon(
               size: 20,
               Icons.align_horizontal_center,

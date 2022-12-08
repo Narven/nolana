@@ -9,12 +9,10 @@ class MainArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        width: 200,
-        decoration: const BoxDecoration(
-          color: kMainAreaBackgroundColor,
-        ),
+    return Container(
+      width: 200,
+      decoration: const BoxDecoration(
+        color: kMainAreaBackgroundColor,
       ),
     );
   }
